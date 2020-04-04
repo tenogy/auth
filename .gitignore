@@ -1,0 +1,5 @@
+**/obj/
+**/bin/
+**/.vs/
+/src/Tenogy.Auth/AuthServer/tempkey.rsa
+/src/Tenogy.Auth/AuthServer/appsettings.Development.json
