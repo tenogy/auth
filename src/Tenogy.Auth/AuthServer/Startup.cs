@@ -7,6 +7,7 @@ using IdentityServer4.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -60,7 +61,7 @@ namespace Tenogy.Auth
 					AllowedScopes = c.Scopes.ToList()
 				}).ToArray());
 
-			
+
 			if (Environment.IsDevelopment())
 			{
 				builder.AddDeveloperSigningCredential();
@@ -89,6 +90,14 @@ namespace Tenogy.Auth
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
+			}
+			else
+			{
+				app.UseForwardedHeaders(new ForwardedHeadersOptions
+				{
+					ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+				});
+				app.UseHsts();
 			}
 
 			app.UseRouting();
