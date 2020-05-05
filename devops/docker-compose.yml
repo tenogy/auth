@@ -1,0 +1,33 @@
+version: "3.4"
+
+services:
+  src:
+    image: tenogy/auth:${APP_VERSION}
+    volumes:
+      - web-content:/app
+    networks:
+      - frontend
+
+  web:
+    restart: unless-stopped
+    image: mcr.microsoft.com/dotnet/core/aspnet:${ASPNET_VERSION}
+    container_name: auth
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - APP_VERSION=${APP_VERSION}
+    volumes:
+      - web-content:/app
+    networks:
+      - frontend
+    ports:
+      - "${APP_PORT}:80"
+    working_dir: /app
+    command: dotnet Tenogy.Auth.dll
+    depends_on:
+      - "src"
+volumes:
+  web-content:
+networks:
+  frontend:
+    external:
+      name: frontend

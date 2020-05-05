@@ -31,6 +31,8 @@ namespace Tenogy.Auth
 			var authConfig = new AuthConfig();
 			Configuration.Bind("Auth", authConfig);
 
+			services.AddControllers();
+
 			var builder = services.AddIdentityServer()
 				.AddInMemoryIdentityResources(new IdentityResource[]
 				{
@@ -89,9 +91,14 @@ namespace Tenogy.Auth
 				app.UseDeveloperExceptionPage();
 			}
 
-			//app.UseRouting();
+			app.UseRouting();
 
 			app.UseIdentityServer();
+
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapControllers();
+			});
 
 			//app.UseEndpoints(endpoints =>
 			//{
