@@ -17,6 +17,8 @@ services:
       - APP_VERSION=${APP_VERSION}
     volumes:
       - web-content:/app
+      - /app/auth/.config:/app/.config
+      - /app/auth/.config/appsettings.json:/app/appsettings.json
     networks:
       - frontend
     ports:
