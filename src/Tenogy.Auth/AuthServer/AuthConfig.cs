@@ -6,6 +6,7 @@ namespace Tenogy.Auth
 	{
 		public string Secret { get; set; }
 		public string Certificate { get; set; }
+		public string PublicOrigin { get; set; }
 		public IEnumerable<IdentityApiResource> Apis { get; set; }
 		public IEnumerable<IdentityClient> Clients { get; set; }
 	}
